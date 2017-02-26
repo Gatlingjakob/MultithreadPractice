@@ -133,7 +133,7 @@ class clientThread extends Thread {
             os = new PrintStream(clientSocket.getOutputStream());
 
             String name = "morethan12letters";
-            while (name.length()>12) {
+            while (name.length()>12 || valid(name) == false) {
                 os.println("Enter your name - max 12 letters! (Valid Input: A-Z, 0-9, comma, underscore): ");
                 name = is.readLine().trim();
             }
@@ -207,8 +207,19 @@ class clientThread extends Thread {
             clientSocket.close();
         } catch (IOException e) {
         }
+
+
+
     }
 
+    //regex checker ved hjælp af en Matcher om parametret kun indeholder de specificerede tegn
+    public static boolean valid (String name){
+        if (name.matches("[0-9a-zA-Z_-]+")){
+            return true;
+    }
+    else
+            return false;
+        }
 
 }
 

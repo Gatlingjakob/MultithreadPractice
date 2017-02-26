@@ -92,8 +92,10 @@ public class MultiThreadChatClient implements Runnable {
         try {
             while ((responseLine = is.readLine()) != null) {
                 System.out.println(responseLine);
-                if (responseLine.indexOf("Bye") != -1)
+                if (responseLine.indexOf("Server says Bye") != -1) {
+                    System.out.println("Client Thread has been terminated");
                     break;
+                }
             }
             closed = true;
         } catch (IOException e) {
