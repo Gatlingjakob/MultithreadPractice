@@ -47,4 +47,8 @@ public class Client {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String toString(){
+        return "Username: [" + username + "] Port: " + port + " IP: " + clientAddress;
+    }
 }

@@ -22,7 +22,7 @@ public class MultiThreadChatServer {
     // This chat server can accept up to maxClientsCount clients' connections.
     private static final int maxClientsCount = 10;
     private static final clientThread[] threads = new clientThread[maxClientsCount];
-    public static ArrayList<String> clientList = new ArrayList<String>();
+    public static ArrayList<Client> clientList = new ArrayList<Client>();
 
     public static void main(String args[]) {
 
@@ -79,15 +79,12 @@ public class MultiThreadChatServer {
     }
 
 
-    public static void addToClientList(String username){
+    public static void addToClientList(Client client){
 
-        clientList.add(username);
-        System.out.println("New User [" + username + "] added to clientList: " + clientList);
+        clientList.add(client);
+        System.out.println("New User [" + client.getUsername() + "] added to clientList: " + clientList);
     }
 
-    public static String getName(String name){
-        return name;
-    }
 
     public static void removeFromClientList (String name){
         if (clientList.contains(name)){
@@ -146,8 +143,12 @@ class clientThread extends Thread {
             Timer timer = new Timer();
             timer.schedule(showHeartbeat, 0, 60000);
 
-            MultiThreadChatServer.addToClientList(name);
-           //System.out.println("Clients on this server: " +clientList);
+            Client client = new Client();
+            client.setUsername(name);
+            client.setPort(clientSocket.getPort());
+            client.setClientAddress(clientSocket.getInetAddress());
+
+            MultiThreadChatServer.addToClientList(client);
 
             System.out.println("New User :" + name + " port: " + clientSocket.getPort() + " IP: "
                     + clientSocket.getInetAddress() +
@@ -187,7 +188,8 @@ class clientThread extends Thread {
             MultiThreadChatServer.removeFromClientList(name);
             System.out.println("User: [" + name + "] left the chatroom.");
             os.println("You have left the chatroom.");
-            os.println("Bye");
+            os.println("Server says Bye");
+            timer.cancel();
 
       /*
        * Clean up. Set the current thread variable to null so that a new client

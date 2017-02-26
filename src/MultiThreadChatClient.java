@@ -28,16 +28,6 @@ public class MultiThreadChatClient implements Runnable {
         // The default host.
         String host = "localhost";
 
-        /*
-        if (args.length < 2) {
-            System.out
-                    .println("Usage: java MultiThreadChatClient <host> <portNumber>\n"
-                            + "Now using host=" + host + ", portNumber=" + portNumber);
-        } else {
-            host = args[0];
-            portNumber = Integer.valueOf(args[1]).intValue();
-        }
-        */
 
     /*
      * Open a socket on a given host and port. Open input and output streams.
@@ -92,8 +82,8 @@ public class MultiThreadChatClient implements Runnable {
         try {
             while ((responseLine = is.readLine()) != null) {
                 System.out.println(responseLine);
-                if (responseLine.indexOf("Server says Bye") != -1) {
-                    System.out.println("Client Thread has been terminated");
+                if (responseLine.contains("Server says Bye")) {
+
                     break;
                 }
             }
