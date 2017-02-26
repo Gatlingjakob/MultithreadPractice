@@ -110,7 +110,6 @@ class clientThread extends Thread {
     private Socket clientSocket = null;
     private final clientThread[] threads;
     private int maxClientsCount;
-    private boolean heartbeat;
 
     public clientThread(Socket clientSocket, clientThread[] threads) {
         this.clientSocket = clientSocket;
