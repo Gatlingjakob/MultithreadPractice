@@ -86,9 +86,9 @@ public class MultiThreadChatServer {
     }
 
 
-    public static void removeFromClientList (String name){
-        if (clientList.contains(name)){
-            clientList.remove(clientList.indexOf(name));
+    public static void removeFromClientList (Client client, String name){
+        if (clientList.contains(client)){
+            clientList.remove(client);
             System.out.println("User [" + name + "] removed from clientList: " + clientList);
         }
     }
@@ -184,7 +184,7 @@ class clientThread extends Thread {
                             + "] has left the chat room.");
                 }
             }
-            MultiThreadChatServer.removeFromClientList(name);
+            MultiThreadChatServer.removeFromClientList(client,name);
             System.out.println("User: [" + name + "] left the chatroom.");
             os.println("You have left the chatroom.");
             os.println("Server says Bye");
@@ -243,7 +243,5 @@ class showHeartbeat extends TimerTask {
         count++;
     }
 
-    public static String getName(String name) {
-        return name;
-    }
+
 }
